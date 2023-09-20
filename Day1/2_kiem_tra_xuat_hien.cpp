@@ -1,3 +1,4 @@
+// check if this number appear before
 #include <iostream>
 #include <map>
 using namespace std;
