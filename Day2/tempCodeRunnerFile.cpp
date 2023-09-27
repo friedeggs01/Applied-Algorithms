@@ -1,0 +1,1 @@
+cout << row << col << v << endl;
