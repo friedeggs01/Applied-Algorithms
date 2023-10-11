@@ -67,16 +67,25 @@ node *addfirst(node *p, int x) {
 }
 
 node *addafter(node *p, int u, int v) {
-    node *temp = createNode(u);
+    if (p == NULL || p->data == u) {
+        return p; // Node already exists or empty list, no need to add
+    }
     node *curr = p;
+    while (curr->next != NULL) {
+        if (curr->next->data == u) {
+            return p; // Node already exists, no need to add
+        }
+        curr = curr->next;
+    }
+    node *temp = createNode(u);
+    curr = p;
     while (curr != NULL) {
         if (curr->data == v) {
-            if (curr->next != NULL && curr->next->data == u) {
-                return p; // Node u already exists, no need to add
-            }
-            temp->next = curr->next;
+            // Found node v, insert node u after it
+            node* nextNode = curr->next;
             curr->next = temp;
-            break;
+            temp->next = nextNode;
+            return p;
         }
         curr = curr->next;
     }
@@ -143,7 +152,7 @@ node *reverse(node *p) {
 }
 
 int main() {
-    freopen("8.txt", "r", stdin);
+    // freopen("8.txt", "r", stdin);
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
