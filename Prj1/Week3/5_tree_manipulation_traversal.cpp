@@ -1,36 +1,63 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-struct _Node {
+struct Node {
     int data;
-    struct _Node *leftMostChild;
-    struct _Node *rightSibling;
-}Node;
-Node root;
+    struct Node *leftMostChild;
+    struct Node *rightSibling;
+};
+Node *root = NULL;
 Node *makenewnode(int x) {
-    Node *p = (Node*)malloc(sizeof(Node));
+    Node *p = new Node;
     if(p==NULL) {
         cout << "Error in mem alloc\n" << endl;
-        return 0;
+        return nullptr;
     }
     p->data = x;
     p->leftMostChild = NULL;
     p->rightSibling = NULL;
     return p;
 }
-void insert(int u, int x){
-    Node* parentNode = findNote(root, x);
-    if(parentNode != nullptr) {
-        TreeNode* childNode = new TreeNode
-    }
-}
-
-void preOder(Node *r){
-    if(r==NULL) return;
+Node *find(Node *r, int v){
+    if(r==NULL) return NULL;
+    if(r->data==v) return r;
 
     Node *p = r->leftMostChild;
     while(p!=NULL){
-        preOder(p);
+        Node *hv = find(p, v);
+        if(hv!=NULL) return hv;
+        p = p->rightSibling;
+    }
+    return NULL;
+}
+void insert(int u, int x) {
+    Node* currentNode = find(root, x);
+
+    if (currentNode != nullptr) {
+        // 'x' node found, create a new node with data 'u'
+        Node* newNode = makenewnode(u);
+
+        if (currentNode->leftMostChild == nullptr) {
+            // If 'x' node has no children, set the new node as the leftmost child
+            currentNode->leftMostChild = newNode;
+        } else {
+            // If 'x' node already has children, find the last sibling and append the new node
+            Node* lastSibling = currentNode->leftMostChild;
+            while (lastSibling->rightSibling != nullptr) {
+                lastSibling = lastSibling->rightSibling;
+            }
+            lastSibling->rightSibling = newNode;
+        }
+    } else {
+        cout << "Node with data " << x << " not found" << endl;
+    }
+}
+
+void preOrder(Node *r){
+    if(r==NULL) return;
+    cout << r->data << " ";
+    Node *p = r->leftMostChild;
+    while(p!=NULL){
+        preOrder(p);
         p = p->rightSibling;
     }
 }
@@ -42,7 +69,7 @@ void postOrder(Node *r){
         postOrder(p);
         p=p->rightSibling;
     }
-    printf("%c ", r->id);
+    cout << r->data << " ";
 }
 void inOrder(Node *r){
     if(r == NULL) return;
@@ -50,7 +77,7 @@ void inOrder(Node *r){
     Node *p = r->leftMostChild;
     inOrder(p);
 
-    printf("%c ", r->id);
+    cout << r->data << " ";
     if(p!=NULL) p=p->rightSibling;
     while(p!=NULL){
         inOrder(p);
@@ -58,7 +85,7 @@ void inOrder(Node *r){
     }
 }
 int main() {
-    freopen("5.txt", "r", stdin);
+    // freopen("5.txt", "r", stdin);
     ios_base::sync_with_stdio(false);
     cin.tie();
     while(true) {

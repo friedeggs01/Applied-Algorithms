@@ -1,86 +1,87 @@
-#include <iostream>
-#include <map>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct node {
-    int data;
+struct node{
+    string name;
+    int gen = 0;
+    int des = 0;
     node* dad;
+    vector<node*> children;
 };
 
-map<string, node*> familyTree;
+set<node*> everyone; 
 
-// Function to count the descendants of a given name
-int countDescendants(const string& name) {
-    int descendants = 0;
-    node* current = familyTree[name];
-
-    if (current == nullptr) {
-        return descendants;
-    }
-
-    for (const auto& entry : familyTree) {
-        if (entry.second->dad == current) {
-            descendants++;
-            descendants += countDescendants(entry.first);
-        }
-    }
-
-    return descendants;
+node* makenewPerson(string newname){
+    node *temp = new node();
+    temp->name = newname;
+    return temp;
 }
 
-// Function to count the generations of the descendants of a given name
-int countGenerations(const string& name) {
-    int generations = 0;
-    node* current = familyTree[name];
+void insert(string childName, string dadName){
+    node *childnode = NULL, *dadnode = NULL;
 
-    if (current == nullptr) {
-        return generations;
+     // find if child or dad was existed before
+    for(auto i : everyone) {
+        if (i->name == dadName) dadnode = i;
+        else if (i->name == childName) childnode = i;   
     }
-
-    for (const auto& entry : familyTree) {
-        if (entry.second->dad == current) {
-            generations = max(generations, 1 + countGenerations(entry.first));
-        }
+    if(childnode == NULL) {
+        childnode = makenewPerson(childName);
+        everyone.insert(childnode);
     }
-
-    return generations;
+    if(dadnode == NULL) {
+        dadnode = makenewPerson(dadName);
+        everyone.insert(dadnode);
+    }
+    
+    dadnode->children.push_back(childnode);
+    childnode->dad = dadnode;
+    
+    // update generation by loop from bottom to top (null) of tree
+    dadnode->gen = childnode->gen + 1;
+    int temp = dadnode->gen;
+    node *dadTemp = dadnode->dad;
+    while(dadTemp != NULL){
+        dadTemp->gen = temp + 1;
+        temp = dadTemp->des;
+        dadTemp = dadTemp->dad;
+    }
+    
+    // update descendants
+    dadnode->des += childnode->des + 1;
+    temp = childnode->des;
+    dadTemp = dadnode->dad;
+    while(dadTemp != NULL){
+        dadTemp->des += temp + 1;
+        dadTemp = dadTemp->dad;
+    }
 }
 
-// Function to insert a child-parent relationship into the family tree
-void insert(const string& child, const string& dad) {
-    node* childNode = new node;
-    childNode->data = stoi(child);
-    childNode->dad = familyTree[dad];
-    familyTree[child] = childNode;
-}
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    freopen("6.txt", "r", stdin);
-    while (true) {
-        string temp;
-        cin >> temp;
-
-        if (temp == "***") {
-            break;
-        } else if (temp == "descendants") {
-            string t;
-            cin >> t;
-            int numDescendants = countDescendants(t);
-            cout << numDescendants << endl;
-        } else if (temp == "generation") {
-            string t;
-            cin >> t;
-            int numGenerations = countGenerations(t);
-            cout << numGenerations << endl;
-        } else {
-            string child, dad;
-            cin >> child >> dad;
-            insert(child, dad);
+int main(){
+    // freopen("6.txt", "r", stdin);
+    while(true){
+        string  childName; cin >> childName;
+        if(childName == "***") break;
+        else{
+            string dadName; cin >> dadName;
+            insert(childName, dadName);
         }
     }
-
+    while(true){
+        string query; cin >> query;
+        if(query == "***") break;
+        else if(query == "generation"){
+            string personName; cin >> personName;
+            for(auto it : everyone) {
+                if (it->name == personName) cout << it->gen << endl;
+            }
+        }
+        else if (query == "descendants"){
+            string personName; cin >> personName;
+            for(auto it : everyone) {
+                if (it->name == personName) cout << it->des << endl;
+            }
+        }
+    }
     return 0;
 }
