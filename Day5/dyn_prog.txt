@@ -1,0 +1,9 @@
+Sơ đồ chung
+- Định nghĩa bài toán con
+- Xây dựng chương trình quy hoạch động (công thức truy hồi)
+
+- Bottom up: giải bài toán con nhỏ nhất trước
+            Xây dựng lời giải của 1 bài toán con phục thuộc bài toán con nhỏ hơn
+- Top down: đệ quy có nhớ
+            Việc giải một bài toán con ứng với một hàm đệ quy
+            Dùng bộ nhớ để lưu lại lời giải, tránh việc giải nhiều lần
