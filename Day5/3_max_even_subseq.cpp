@@ -2,13 +2,13 @@
 using namespace std;
 
 long long n, a[10000001], ans = -1;
-long long mo, me;
+long long mo = 1e6, me = 0;
 
 // a[i] is sum from a[1] +...+ a[i]
 long long max_even_seq() {
     for(int i=1; i<=n; i++){
         // cout << ans << endl;
-        if(a[i]%2 == 0){
+        if(a[i]%2 != 0){
             ans = max(ans, a[i] - mo);
             mo = min(mo, a[i]);
         } else {
