@@ -59,7 +59,8 @@
   "files.associations": {
     "iostream": "cpp",
     "new": "cpp",
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
