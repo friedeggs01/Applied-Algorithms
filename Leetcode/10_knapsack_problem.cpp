@@ -1,11 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int profit[] = { 220, 100, 120 }; 
-int weight[] = { 1000, 2000, 3000 }; 
-int W = 5000; 
-int n = 3;
-vector<int> K(W+1);
+int profit[31];
+int weight[31];
+int W; 
+int n;
+int K[1000001];
 int knapSack(){
     int i, w;
     for (i = 0; i < n; i++) { 
@@ -21,6 +21,10 @@ int knapSack(){
 int main() {
     ios_base::sync_with_stdio();
     cin.tie(); cout.tie();
+    cin >> n >> W;
+    for(int i=0; i<n; i++) {
+        cin >> weight[i] >> profit[i];
+    }
     cout << knapSack();
     return 0;
 }
