@@ -1,3 +1,5 @@
+// Bài toán con S(i) = tổng cực đại của dãy con thỏa mãn phần tử cuối cùng là ai
+// S(i) = max(ai + S(j) | L1 <= i-j <= L2)
 // Khởi tạo deque, lưu trữ các chỉ số j sao cho S(j) không tăng và là ứng viên để tính toán cho bài toán con S(i)
 // Mỗi khi xét đến chỉ số i:
 //     Đưa hết các chỉ số j ở đầu deque tại đó j<i-l2 ra ngoài(vì nó không là ứng viên để xác định S(i))
