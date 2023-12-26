@@ -20,6 +20,7 @@ struct kruskal {
     }
     
     // when u and v have the same parent, if adding edge(u,v), its will create a cycle
+    // disjoin set structure
     bool join(int u, int v) {
         u = find(u); v = find(v);
         if (u == v) return false;

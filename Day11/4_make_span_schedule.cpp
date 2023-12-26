@@ -2,7 +2,7 @@
 using namespace std;
 
 int n, m, d[10001];
-
+// topology sorting
 
 int main() {
     ios_base::sync_with_stdio();
