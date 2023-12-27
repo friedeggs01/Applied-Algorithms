@@ -56,7 +56,7 @@ void solve() { // thuật toán graham scan
 }
 
 int main() {
-    freopen("4.txt", "r", stdin);
+    // freopen("4.txt", "r", stdin);
     cin >> n;
     for (int i = 0; i < n; i++){
         cin >> p[i].x >> p[i].y;
