@@ -16,7 +16,7 @@ int solve() {
 int main() {
     ios_base::sync_with_stdio();
     cin.tie(); cout.tie();
-    freopen("4.txt", "r", stdin);
+    // freopen("4.txt", "r", stdin);
     cin >> t;
     while(t--){
         cin >> n >> m;

@@ -68,9 +68,6 @@ int main()
     for(int i = 1; i <= n; ++i){
         BFS(i);
     }
-    for(int i = 1; i <= n; ++i){
-        adj[i].clear();
-    }
     dijkstra();
     cout << d[n];
     return 0;
