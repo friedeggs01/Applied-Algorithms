@@ -1,0 +1,14 @@
+create RECTANGLE R01 0 0 1 2 L 2
+create CIRCLE C01 5 5 2 R 1
+move
+change_direction R01 U 3
+change_direction C01 L 1
+move
+view_position R01
+move 
+view_position C01
+move 
+view_position C01
+create RECTANGLE R02 0 0 3 4 R 1
+view_position R02
+#
